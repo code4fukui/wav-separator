@@ -1,0 +1,45 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<title>wav-separator</title>
+<script type="module">
+import { convertWhenDrop } from "./convertWhenDrop.js";
+import { separateWav } from "./separateWav.js";
+
+convertWhenDrop(divmain, "wav", async (name, data) => { // { name, data } or array
+  const res = separateWav(data);
+  const bname = name.substring(0, name.length - 4);
+  return [
+    { name: bname + ".r.wav", data: res[0] },
+    { name: bname + ".l.wav", data: res[1] },
+  ];
+});
+</script>
+</head>
+<body>
+  
+<div class="jumbotron">
+  <h1 class="display-4">wav-separator</h1>
+  <p class="lead">ステレオWAVファイルをモノラルWAVファイル2つに分割します（まとめて変換対応）</p>
+</div>
+
+<div class="mx-5">
+  <div id="divmain" class="border px-5 mx-auto pt-3 pb-3"></div>
+<!--
+  <label><input type="checkbox" id="trimwhitespace" class="m-3" checked>値前後の空白削除</label>
+  <label><input type="checkbox" id="removecomma" class="m-3" checked>コンマ入り数値のコンマ削除</label>
+  <label><input type="checkbox" id="removenullline" class="m-3" checked>空行削除</label>
+  <label><input type="checkbox" id="removenullrow" class="m-3" checked>空列削除</label>
+  <label><input type="checkbox" id="shrink2jisx0213" class="m-3" checked><a href=https://github.com/code4fukui/BaseRegistry/blob/main/%E7%94%A8%E8%AA%9E.md#jis-x-0213>JIS X 0213</a>に縮退β</label>
+-->
+</div>
+
+<footer class="text-muted">
+  <div class="container my-4 mx-0">
+  <p>Design: <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a></p>
+  <p>Lib: <a href=https://github.com/code4fukui/wavefile-es>wavefile-es</a> forked from <a href=https://github.com/rochars/wavefile>rochars/wavefile</a><br>
+  <p>App: CC BY <a href="https://fukuno.jig.jp/3929">福野泰介の一日一創</a> by <a href="https://twitter.com/taisukef">@taisukef</a> (<a href=https://github.com/code4fukui/wav-separator/>src on GitHub</a>)</p>
+  </div>
+</footer>
+
+</body>
+</html>
